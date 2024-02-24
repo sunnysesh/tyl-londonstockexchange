@@ -19,6 +19,7 @@ public class TradeService : ITradeService
         {
             var trade = new Trade()
             {
+                Id = Guid.NewGuid(),
                 Ticker = request.Ticker,
                 Price = request.Price,
                 Shares = request.Shares,
