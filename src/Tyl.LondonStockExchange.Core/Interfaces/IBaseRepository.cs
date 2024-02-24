@@ -4,5 +4,5 @@ public interface IBaseRepository<T> where T : class
 {
     T Add(T data);
     
-    List<T> Get(string reference);
+    List<T> Get(string[] references = null);
 }

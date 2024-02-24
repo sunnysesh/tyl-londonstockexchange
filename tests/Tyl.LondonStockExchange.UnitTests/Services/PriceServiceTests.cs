@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using Tyl.LondonStockExchange.Core.Entities;
 using Tyl.LondonStockExchange.Core.Interfaces;
 using Tyl.LondonStockExchange.Core.Services;
@@ -9,7 +10,7 @@ namespace Tyl.LondonStockExchange.UnitTests.Services;
 public class PriceServiceTests
 {
     [Fact]
-    public async Task GetPricesViaTicker_WhenTickerExists_ShouldReturnCorrectTotal()
+    public void GetPricesViaTicker_WhenTickerExists_ShouldReturnCorrectTotal()
     {
         var expectedTrade = new Trade()
         {
@@ -20,17 +21,17 @@ public class PriceServiceTests
             Ticker = "APPL"
         };
         var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
-        mockTradeRepo.Get(Arg.Any<string>()).Returns(new List<Trade>(){expectedTrade});
+        mockTradeRepo.Get(Arg.Any<string[]>()).Returns(new List<Trade>(){expectedTrade});
         var sut = new PriceService(mockTradeRepo);
 
-        var result = await sut.GetPricesViaTicker(new []{expectedTrade.Ticker});
+        var result = sut.GetPricesViaTicker(new []{expectedTrade.Ticker});
 
         result.Should().HaveCount(1);
         result.Select(i => i.TotalValue).Sum().Should().Be(expectedTrade.Price);
     }
     
     [Fact]
-    public async Task GetPricesViaTicker_WhenMultipleTickersExists_ShouldReturnCorrectTotals()
+    public void GetPricesViaTicker_WhenMultipleTickersExists_ShouldReturnCorrectTotals()
     {
         string[] expectedTickers = ["APPL", "MSFT"];
         var expectedTrades = new List<Trade>()
@@ -61,21 +62,27 @@ public class PriceServiceTests
             }
         };
         var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
-        mockTradeRepo.Get(Arg.Any<string>()).Returns(expectedTrades);
+        mockTradeRepo.Get(Arg.Any<string[]>()).Returns(expectedTrades);
         var sut = new PriceService(mockTradeRepo);
         
-        var result = await sut.GetPricesViaTicker(new []{expectedTickers[0]});
+        var result = sut.GetPricesViaTicker(expectedTickers);
         
-        result.Should().HaveCount(1);
+        result.Should().HaveCount(2);
         result
             .Where(i => i.Ticker == expectedTickers[0])
             .Select(i => i.TotalValue)
             .Sum()
             .Should().Be(expectedTrades[0].Price + expectedTrades[1].Price);
+        
+        result
+            .Where(i => i.Ticker == expectedTickers[1])
+            .Select(i => i.TotalValue)
+            .Sum()
+            .Should().Be(expectedTrades[2].Price);
     }
     
     [Fact]
-    public async Task GetAllPrices_WhenTickersExist_ShouldReturnCorrectTotals()
+    public void GetAllPrices_WhenTickersExist_ShouldReturnCorrectTotals()
     {
         string[] expectedTickers = ["APPL", "MSFT"];
         var expectedTrades = new List<Trade>()
@@ -106,10 +113,10 @@ public class PriceServiceTests
             }
         };
         var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
-        mockTradeRepo.Get(Arg.Any<string>()).Returns(expectedTrades);
+        mockTradeRepo.Get(Arg.Any<string[]>()).Returns(expectedTrades);
         var sut = new PriceService(mockTradeRepo);
         
-        var result = await sut.GetAllPrices();
+        var result = sut.GetAllPrices();
         
         result.Should().HaveCount(2);
         result
@@ -126,23 +133,14 @@ public class PriceServiceTests
     }
 
     [Fact]
-    public async Task GetPricesViaTicker_WhenTickerDoesntExist_ShouldReturnNull()
+    public void GetPricesViaTicker_WhenTickerDoesntExist_ShouldReturnNull()
     {
-        var expectedTrade = new Trade()
-        {
-            Id = Guid.NewGuid(),
-            BrokerId = "testBrokerId123",
-            Price = 4.50m,
-            Shares = 50,
-            Ticker = "APPL"
-        };
         var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
-        mockTradeRepo.Get(Arg.Any<string>()).Returns(new List<Trade>(){expectedTrade});
+        mockTradeRepo.Get(Arg.Any<string[]>()).Returns(new List<Trade>());
         var sut = new PriceService(mockTradeRepo);
 
-        var result = await sut.GetPricesViaTicker(new []{"MSFT"});
+        var result = sut.GetPricesViaTicker(new []{"APPL"});
 
-        result.Should().BeEmpty();
-        
+        result.Should().BeNullOrEmpty();
     }
 }

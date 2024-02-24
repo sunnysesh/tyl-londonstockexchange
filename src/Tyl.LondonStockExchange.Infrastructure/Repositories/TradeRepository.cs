@@ -1,5 +1,6 @@
 ﻿using Tyl.LondonStockExchange.Core.Interfaces;
 using Tyl.LondonStockExchange.Core.Entities;
+using System.Linq;
 
 namespace Tyl.LondonStockExchange.Infrastructure.Repositories;
 
@@ -17,9 +18,11 @@ public class TradeRepository : IBaseRepository<Trade>
         return Transactions.Where(i => i.Id == trade.Id).FirstOrDefault();
     }
 
-    public List<Trade> Get(string reference)
+    public List<Trade> Get(string[] references = null)
     {
-        var results = Transactions.Where(i => i.Ticker.Equals(reference)).ToList();
-        return results;
+        if (references == null || !references.Any())
+            return Transactions;
+            
+        return Transactions.Where(i => references.Contains(i.Ticker)).ToList();
     }
 }
