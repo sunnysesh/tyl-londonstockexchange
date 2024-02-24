@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{48F859E7-630B-40EB-8835-3685C3073A96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyl.LondonStockExchange.App", "src\Tyl.LondonStockExchange.App\Tyl.LondonStockExchange.App.csproj", "{E7209856-E6E5-4D31-9744-654A7011B40E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8404B9CF-0022-4C8D-BAC9-3602E3E65FFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyl.LondonStockExchange.Core", "src\Tyl.LondonStockExchange.Core\Tyl.LondonStockExchange.Core.csproj", "{B5C22AF8-F111-4DB4-BE86-613D1E49637A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyl.LondonStockExchange.Infrastructure", "src\Tyl.LondonStockExchange.Infrastructure\Tyl.LondonStockExchange.Infrastructure.csproj", "{3834B944-752F-4BA4-9619-63637397675E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tyl.LondonStockExchange.UnitTests", "tests\Tyl.LondonStockExchange.UnitTests\Tyl.LondonStockExchange.UnitTests.csproj", "{8C74982E-E155-4B77-BE5E-EEC77F06C93A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7209856-E6E5-4D31-9744-654A7011B40E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7209856-E6E5-4D31-9744-654A7011B40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7209856-E6E5-4D31-9744-654A7011B40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7209856-E6E5-4D31-9744-654A7011B40E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C22AF8-F111-4DB4-BE86-613D1E49637A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C22AF8-F111-4DB4-BE86-613D1E49637A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C22AF8-F111-4DB4-BE86-613D1E49637A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C22AF8-F111-4DB4-BE86-613D1E49637A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3834B944-752F-4BA4-9619-63637397675E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3834B944-752F-4BA4-9619-63637397675E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3834B944-752F-4BA4-9619-63637397675E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3834B944-752F-4BA4-9619-63637397675E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C74982E-E155-4B77-BE5E-EEC77F06C93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C74982E-E155-4B77-BE5E-EEC77F06C93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C74982E-E155-4B77-BE5E-EEC77F06C93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C74982E-E155-4B77-BE5E-EEC77F06C93A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7209856-E6E5-4D31-9744-654A7011B40E} = {48F859E7-630B-40EB-8835-3685C3073A96}
+		{B5C22AF8-F111-4DB4-BE86-613D1E49637A} = {48F859E7-630B-40EB-8835-3685C3073A96}
+		{3834B944-752F-4BA4-9619-63637397675E} = {48F859E7-630B-40EB-8835-3685C3073A96}
+		{8C74982E-E155-4B77-BE5E-EEC77F06C93A} = {8404B9CF-0022-4C8D-BAC9-3602E3E65FFB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {786352C4-F4B5-4D97-8EF8-659E0DA3EC82}
+	EndGlobalSection
+EndGlobal
