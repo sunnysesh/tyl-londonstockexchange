@@ -14,20 +14,12 @@ public class PriceService : IPriceService
         _tradeRepository = tradeRepository;
     }
 
-    public List<PriceResponseModel> GetPricesViaTicker(string[] tickers)
+    public List<PriceResponseModel> GetPrices(string[] tickers = null)
     {
-        var transactions = _tradeRepository.Get(tickers);
-        if (!transactions.Any())
-            return null;
+        var transactions = tickers?.Length > 0
+            ? _tradeRepository.Get(tickers)
+            : _tradeRepository.Get();
         
-        var groupedTransactions = ProcessTransactions(transactions);
-        var priceResponse = MapToPriceResponse(groupedTransactions);
-        return priceResponse;
-    }
-
-    public List<PriceResponseModel> GetAllPrices()
-    {
-        var transactions = _tradeRepository.Get();
         if (!transactions.Any())
             return null;
         

@@ -4,7 +4,5 @@ namespace Tyl.LondonStockExchange.Core.Interfaces;
 
 public interface IPriceService
 {
-    List<PriceResponseModel> GetPricesViaTicker(string[] tickers);
-
-    List<PriceResponseModel> GetAllPrices();
+    List<PriceResponseModel> GetPrices(string[] tickers = null);
 }
