@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Tyl.LondonStockExchange.Core\Tyl.LondonStockExchange.Core.csproj" />
+      <ProjectReference Include="..\Tyl.LondonStockExchange.Infrastructure\Tyl.LondonStockExchange.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

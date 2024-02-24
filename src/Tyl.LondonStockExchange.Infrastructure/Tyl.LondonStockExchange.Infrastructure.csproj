@@ -11,8 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\" />
-      <Folder Include="Repositories\" />
+      <ProjectReference Include="..\Tyl.LondonStockExchange.Core\Tyl.LondonStockExchange.Core.csproj" />
     </ItemGroup>
 
 </Project>
