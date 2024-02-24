@@ -2,9 +2,8 @@ using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Tyl.LondonStockExchange.Core.Interfaces;
-using Tyl.LondonStockExchange.Core.Services;
 using Tyl.LondonStockExchange.Core.Entities;
-using Tyl.LondonStockExchange.Infrastructure.Repositories;
+using Tyl.LondonStockExchange.Core.Services;
 
 namespace Tyl.LondonStockExchange.UnitTests.Services;
 
