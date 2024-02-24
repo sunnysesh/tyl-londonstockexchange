@@ -3,7 +3,7 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Tyl.LondonStockExchange.Core.Interfaces;
 using Tyl.LondonStockExchange.Core.Services;
-using Tyl.LondonStockExchange.Infrastructure.Entities;
+using Tyl.LondonStockExchange.Core.Entities;
 using Tyl.LondonStockExchange.Infrastructure.Repositories;
 
 namespace Tyl.LondonStockExchange.UnitTests.Services;
@@ -18,50 +18,17 @@ public class TradeServiceTests
             Id = Guid.NewGuid(),
             Ticker = "APPL",
             BrokerId = "TestBroker1",
-            Price = 4em,
+            Price = 4.0m,
             Shares = 10
         };
-        var mockTradeRepo = Substitute.For<TradeRepository>();
+        var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
         mockTradeRepo.Add(Arg.Any<Trade>()).Returns(expectedTrade);
         var sut = new TradeService(mockTradeRepo);
 
-        sut.CreateTrade(expectedTrade);
+        var result = sut.CreateTrade(expectedTrade);
 
-        mockTradeRepo.Received().Add(
-            Arg.Is<Trade>(i => i.Id == expectedTrade.Id
-                               && i.Ticker == expectedTrade.Ticker));
-        mockTradeRepo.Transactions.Should().Contain(expectedTrade);
-    }
-    
-    [Fact]
-    public void CreateTrade_WhenExistingTradeCreated_ShouldBeSavedInRepo()
-    {
-        var mockTradeRepo = Substitute.For<TradeRepository>();
-        mockTradeRepo.Transactions.Add(new Trade()
-        {
-            Id = Guid.NewGuid(),
-            Ticker = "APPL",
-            BrokerId = "TestBroker1",
-            Price = 8em,
-            Shares = 35
-        });
-        
-        var newTrade = new Trade()
-        {
-            Id = Guid.NewGuid(),
-            Ticker = "APPL",
-            BrokerId = "TestBroker1",
-            Price = 4em,
-            Shares = 10
-        };
-        mockTradeRepo.Add(Arg.Any<Trade>()).Returns(newTrade);
-        
-        var sut = new TradeService(mockTradeRepo);
-
-        sut.CreateTrade(newTrade);
-
-        mockTradeRepo.Transactions.Should().HaveCount(2);
-        mockTradeRepo.Transactions.Last().Should().BeEquivalentTo(newTrade);
+        mockTradeRepo.Received().Add(Arg.Is<Trade>(i => i.Ticker == expectedTrade.Ticker));
+        result.Should().BeEquivalentTo(expectedTrade);
     }
     
     [Fact]
@@ -72,10 +39,10 @@ public class TradeServiceTests
             Id = Guid.NewGuid(),
             Ticker = "APPL",
             BrokerId = "TestBroker1",
-            Price = 4em,
+            Price = 4.0m,
             Shares = 10
         };
-        var mockTradeRepo = Substitute.For<TradeRepository>();
+        var mockTradeRepo = Substitute.For<IBaseRepository<Trade>>();
         mockTradeRepo.Add(Arg.Any<Trade>()).ThrowsForAnyArgs(_ => new Exception());
         
         var sut = new TradeService(mockTradeRepo);

@@ -1,8 +1,9 @@
 ﻿using Tyl.LondonStockExchange.Core.Models;
+using Tyl.LondonStockExchange.Core.Entities;
 
 namespace Tyl.LondonStockExchange.Core.Interfaces;
 
 public interface ITradeService
 {
-    Task CreateTrade(TradeRequestModel request);
+    Trade CreateTrade(TradeRequestModel request);
 }
