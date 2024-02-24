@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IValidator<TradeRequestModel>, TradeValidator>();
 
 builder.Services.AddTransient<ITradeService, TradeService>();
+builder.Services.AddTransient<IPriceService, PriceService>();
 builder.Services.AddSingleton<IBaseRepository<Trade>, TradeRepository>(); //Removed once db is in place
 
 var app = builder.Build();
