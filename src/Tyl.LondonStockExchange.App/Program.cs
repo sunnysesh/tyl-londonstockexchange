@@ -5,7 +5,6 @@ using Tyl.LondonStockExchange.Core.Models;
 using Tyl.LondonStockExchange.Core.Validators;
 using Tyl.LondonStockExchange.Infrastructure.Repositories;
 using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,16 +37,35 @@ app.MapPost("/trades", async (IValidator<TradeRequestModel> tradeValidator, ITra
     return Results.Created("/trades", response);
 });
 
-app.MapGet("/price/{ticker}", () =>
+app.MapGet("/price/{ticker}", (IPriceService priceService, string ticker) =>
 {
+    var result = priceService.GetPrices([ticker]);
+    if (result == null)
+        return Results.NotFound();
+
+    return Results.Created($"/price/{ticker}", result);
 });
 
-app.MapGet("/prices", () =>
+app.MapGet("/prices", (IPriceService priceService) =>
 {
+    var result = priceService.GetPrices();
+    if (result == null)
+        return Results.NotFound();
+
+    return Results.Created($"/prices", result);
+    
 });
 
-app.MapGet("/prices/tickers", () =>
+app.MapGet("/prices/tickers", (IPriceService priceService, string tickers) =>
 {
+    if (string.IsNullOrEmpty(tickers))
+        return Results.BadRequest();
+    
+    var result = priceService.GetPrices(tickers.Split(','));
+    if (result == null)
+        return Results.NotFound();
+
+    return Results.Created($"/price/tickers", result);
 });
 
 app.Run();

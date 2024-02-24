@@ -1,6 +1,5 @@
 ﻿using Tyl.LondonStockExchange.Core.Models;
 using Tyl.LondonStockExchange.Core.Interfaces;
-using Tyl.LondonStockExchange.Core.Models;
 using Tyl.LondonStockExchange.Core.Entities;
 
 namespace Tyl.LondonStockExchange.Core.Services;
